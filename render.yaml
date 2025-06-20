@@ -1,0 +1,49 @@
+services:
+  - type: web # VERIFY: Check your service type on Render. It might be 'web' or 'worker'.
+    name: n8n # VERIFY: This should be the name of your service on Render (often 'n8n').
+    env: node # Or the correct Node.js environment for n8n.
+    plan: starter # Or your specific Render plan if different.
+    # --- START: You might need to copy some settings from Render's UI if not already in a render.yaml ---
+    # Example: If Render UI shows a specific build command or start command,
+    # you might need to add them here. If you forked official n8n, these are often standard.
+    # buildCommand: "npm run build" # Only if n8n needs a build step in your fork.
+    # startCommand: "n8n" # Or your specific start command.
+    # --- END: Copy settings ---
+    envVars:
+      - key: N8N_USER_FOLDER # REPLACE THIS with your actual disk mount path from Render.
+        value: /opt/render/.n8n
+      - key: N8N_EDITOR_BASE_URL
+        value: https://n8n-gej7.onrender.com 
+      - key: N8N_ENCRYPTION_KEY
+        value: 5aDv2HDHt7rQyQK0tdTaRzqBCJrOJ5vp 
+      - key: N8N_HOST
+        value: n8n-gej7.onrender.com
+      - key: N8N_PORT
+        value: 443
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_PROTOCOL
+        value: https
+      - key: WEBHOOK_URL
+        value: https://n8n-gej7.onrender.com
+      # --- START: ADD YOUR EXISTING ENVIRONMENT VARIABLES FROM RENDER UI HERE ---
+      # Go to Render > Your n8n service > Environment.
+      # For EACH variable there (like N8N_HOST, N8N_PORT, WEBHOOK_URL, etc.),
+      # add it like this:
+      # - key: N8N_HOST
+      #   value: YOUR_N8N_HOST_VALUE_FROM_RENDER
+      # - key: N8N_PORT
+      #   value: YOUR_N8N_PORT_VALUE_FROM_RENDER
+      # etc.
+      # --- END: ADD YOUR EXISTING ENVIRONMENT VARIABLES ---
+    disk:
+      name: n8n # REPLACE THIS with the name of your persistent disk on Render.
+      mountPath: /opt/render/.n8n # REPLACE THIS with your actual disk mount path from Render (must match N8N_USER_FOLDER).
+      sizeGB: 1 # REPLACE THIS with the size of your disk if different.
+    systemDependencies:
+      - name: build-essential
+      - name: libcairo2-dev
+      - name: libpango1.0-dev
+      - name: libjpeg-dev
+      - name: libgif-dev
+      - name: librsvg2-dev
